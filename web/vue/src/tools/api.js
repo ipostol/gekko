@@ -1,7 +1,7 @@
 // global window.CONFIG
 // import CONFIG from '../../UIconfig'
 
-const config = { ssl: false }
+const config = { ssl: window.location.protocol === 'https:' }
 const endpoint = window.location.host + '/'; // `${config.host}${config.port === 80 ? '' : `:${config.port}`}${config.path}`;
 
 let basePath, restPath, wsPath;

@@ -6,13 +6,10 @@
 const CONFIG = {
   headless: false,
   api: {
-    host: '127.0.0.1',
     port: process.env.PORT || 3000,
     timeout: 120000 // 2 minutes
   },
   ui: {
-    ssl: false,
-    host: '127.0.0.1',
     port: process.env.PORT || 3000,
     path: '/'
   },
