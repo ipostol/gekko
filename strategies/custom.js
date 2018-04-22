@@ -12,28 +12,34 @@ var log = require('../core/log');
 
 // Let's create our own strat
 var strat = {};
+var action = null
+var prevAction = null
+var trade = null
 
 // Prepare everything our method needs
 strat.init = function() {
   this.input = 'candle';
-  this.currentTrend = 'long';
-  this.requiredHistory = 0;
+  this.requiredHistory = this.tradingAdvisor.historySize;
+  this.addIndicator('ema', 'EMA', 55);
+  this.addIndicator('rsi', 'RSI', { interval: 14 });
 }
 
 // What happens on every new candle?
 strat.update = function(candle) {
 
-  // Get a random number between 0 and 1.
-  this.randomNumber = Math.random();
+  prevAction = action
+  action = {
+    type: candle.close > this.indicators.ema.result ? 'long' : 'short',
+    price: candle.close,
+    rsi: this.indicators.rsi.result,
+  };
 
-  // There is a 10% chance it is smaller than 0.1
-  this.toUpdate = this.randomNumber < 0.1;
 }
 
 // For debugging purposes.
 strat.log = function() {
-  log.debug('calculated random number:');
-  log.debug('\t', this.randomNumber.toFixed(3));
+  // log.debug('calculated random number:');
+  // log.debug('\t', this.randomNumber.toFixed(3));
 }
 
 // Based on the newly calculated
@@ -41,23 +47,35 @@ strat.log = function() {
 // update or not.
 strat.check = function() {
 
-  // Only continue if we have a new update.
-  if(!this.toUpdate)
-    return;
+  if (trade) {
 
-  if(this.currentTrend === 'long') {
+    var profit
+    var nextTrend = trade.type === 'short' ? 'long' : 'short'
 
-    // If it was long, set it to short
-    this.currentTrend = 'short';
-    this.advice('short');
+    if (trade.type === 'short') {
+      profit = trade.price * 100 / action.price - 100
+    } else {
+      profit = action.price * 100 / trade.price - 100
+    }
 
-  } else {
+    if (profit >= 1 || profit <= -0.5) {
+      this.advice(nextTrend)
+      trade = null
+    }
 
-    // If it was short, set it to long
-    this.currentTrend = 'long';
-    this.advice('long');
+    return
 
   }
+
+  if (
+    prevAction.type !== action.type && action.type === 'long' &&
+    (action.price * 100 / prevAction.price - 100) >= 1
+  ) {
+    this.advice(action.type);
+    trade = action
+    return
+  }
+
 }
 
 module.exports = strat;

@@ -1,7 +1,8 @@
 // global window.CONFIG
+// import CONFIG from '../../UIconfig'
 
-const config = window.CONFIG.ui;
-const endpoint = `${config.host}${config.port === 80 ? '' : `:${config.port}`}${config.path}`;
+const config = { ssl: false }
+const endpoint = window.location.host + '/'; // `${config.host}${config.port === 80 ? '' : `:${config.port}`}${config.path}`;
 
 let basePath, restPath, wsPath;
 

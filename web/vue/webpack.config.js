@@ -49,7 +49,7 @@ if (process.env.NODE_ENV === 'production') {
   // http://vue-loader.vuejs.org/en/workflow/production.html
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
-      NODE_ENV: JSON.stringify('"production"'),
+      NODE_ENV: JSON.stringify('"production"')
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
