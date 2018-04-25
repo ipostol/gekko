@@ -34,6 +34,7 @@
     "gekko": "0.0.9",
     "gemini-exchange-coffee-api": "2.0.6",
     "humanize-duration": "^3.10.0",
+    "joi": "^13.2.0",
     "koa": "^1.2.0",
     "koa-bodyparser": "^2.2.0",
     "koa-cors": "0.0.16",
@@ -58,8 +59,10 @@
     "semver": "5.4.1",
     "sqlite3": "^3.1.13",
     "stats-lite": "^2.0.4",
+    "talib": "^1.0.4",
     "tiny-promisify": "^0.1.1",
     "toml": "^2.3.0",
+    "tulind": "^0.8.10",
     "twitter": "^1.7.1",
     "zaif.jp": "^0.1.4"
   },
