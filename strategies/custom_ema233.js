@@ -13,13 +13,14 @@ var log = require('../core/log');
 // Let's create our own strat
 var strat = {};
 var stopLoseProcent = 1;
+var profitPercent = 1;
 
 // Prepare everything our method needs
 strat.init = function() {
   this.input = 'candle';
   this.requiredHistory = this.tradingAdvisor.historySize;
-  this.addIndicator('emab', 'EMA', 240);
-  this.addIndicator('emas', 'EMA', 60);
+  this.addIndicator('emab', 'EMA', 55);
+  this.addIndicator('emas', 'EMA', 21);
 }
 
 strat.params = {
@@ -56,6 +57,7 @@ strat.log = function() {
 strat.short = function() {
   this.params.position = 'short';
   this.stoplose = this.candle.close + (this.candle.close * stopLoseProcent / 100);
+  this.nextProfit = this.candle.close - (this.candle.close * profitPercent / 100);
   this.advice('short');
   return true;
 }
@@ -63,6 +65,7 @@ strat.short = function() {
 strat.long = function() {
   this.params.position = 'long';
   this.stoplose = this.candle.close - (this.candle.close * stopLoseProcent / 100);
+  this.nextProfit = this.candle.close + (this.candle.close * profitPercent / 100);
   this.advice('long');
   return true;
 }
@@ -70,12 +73,22 @@ strat.long = function() {
 strat.checkStopLoss = function() {
   if (this.params.position === 'short') {
     if (this.candle.close >= this.stoplose) {
-      this.stoploseActive = true;
       return this.long();
     }
   } else if (this.params.position === 'long') {
     if (this.candle.close >= this.stoplose) {
-      this.stoploseActive = true;
+      return this.short();
+    }
+  }
+}
+
+strat.checkProfit = function() {
+  if (this.params.position === 'short') {
+    if (this.nextProfit && this.nextProfit > this.candle.close) {
+      return this.long();
+    }
+  } else if (this.params.position === 'long') {
+    if (this.nextProfit && this.nextProfit < this.candle.close) {
       return this.short();
     }
   }
@@ -87,6 +100,10 @@ strat.checkStopLoss = function() {
 strat.check = function() {
 
   // if (this.checkStopLoss()) {
+  //   return;
+  // }
+
+  // if (strat.checkProfit()) {
   //   return;
   // }
 
