@@ -1,6 +1,3 @@
-// Downloaded from: https://github.com/xFFFFF/Gekko-Strategies
-// Source: https://justhodl.blogspot.com/
-
 var convnetjs = require('convnetjs')
 var z = require('zero-fill')
 var stats = require('stats-lite')
