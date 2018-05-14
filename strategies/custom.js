@@ -111,6 +111,7 @@ strat.check = function() {
   console.log('check!!!')
 
   if (this.params.position !== this.params.trend) {
+    console.log(this.params.trend);
     this[this.params.trend]();
   }
 
