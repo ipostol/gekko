@@ -33,17 +33,19 @@ strat.init = function() {
 // What happens on every new candle?
 strat.update = function(candle) {
 
-  console.log('update')
-
   this.candle = candle;
 
   if (this.indicators.ema55.result < this.indicators.ema21.result < this.indicators.ema13.result < this.indicators.ema8.result) {
     if (strat.params.position === 'short') {
       this.params.trend = 'long';
+      console.log('trend long');
     }
-  } else if (this.indicators.ema55.result > this.indicators.ema21.result > this.indicators.ema13.result > this.indicators.ema8.result) {
+  }
+
+  if (this.indicators.ema55.result > this.indicators.ema21.result > this.indicators.ema13.result > this.indicators.ema8.result) {
     if (strat.params.position === 'long') {
       this.params.trend = 'short';
+      console.log('trend short');
     }
   }
 
@@ -108,10 +110,8 @@ strat.check = function() {
   //   return;
   // }
 
-  console.log('check!!!')
-
+  console.log(this.state.position, this.params.trend);
   if (this.params.position !== this.params.trend) {
-    console.log(this.params.trend);
     this[this.params.trend]();
   }
 
