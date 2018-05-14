@@ -21,7 +21,7 @@ config.candleWriter = {
 }
 config.adviceWriter = {
   enabled: false,
-  muteSoft: true,
+  // muteSoft: true,
 }
 
 config.trader = {

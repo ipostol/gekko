@@ -190,12 +190,12 @@ config.paperTrader = {
   // start balance, on what the current balance is compared with
   simulationBalance: {
     // these are in the unit types configured in the watcher.
-    asset: 1,
+    asset: 0,
     currency: 100,
   },
   // how much fee in % does each trade cost?
-  feeMaker: 0.15,
-  feeTaker: 0.25,
+  feeMaker: 0.2,
+  feeTaker: 0.2,
   feeUsing: 'maker',
   // how much slippage/spread should Gekko assume per trade?
   slippage: 0.05,
@@ -359,7 +359,7 @@ config.redisBeacon = {
 }
 
 config.slack = {
-  enabled: false,
+  enabled: true,
   token: '',
   sendMessageOnStart: true,
   muteSoft: true,
@@ -458,6 +458,6 @@ config.importer = {
 // understand this.
 //
 // Not sure? Read this first: https://github.com/askmike/gekko/issues/201
-config['I understand that Gekko only automates MY OWN trading strategies'] = false;
+config['I understand that Gekko only automates MY OWN trading strategies'] = true;
 
 module.exports = config;

@@ -116,7 +116,7 @@ var plugins = [
     description: '',
     slug: 'adviceLogger',
     async: false,
-    silent: true,
+    silent: false,
     modes: ['realtime']
   },
   {
