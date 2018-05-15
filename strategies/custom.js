@@ -13,8 +13,8 @@ var log = require('../core/log');
 // Let's create our own strat
 var strat = {
   params: {
-    position: 'short',
-    trend: 'short',
+    position: null,
+    trend: null,
   },
 };
 var stopLoseProcent = 1;
@@ -36,14 +36,14 @@ strat.update = function(candle) {
   this.candle = candle;
 
   if (this.indicators.ema55.result < this.indicators.ema21.result < this.indicators.ema13.result < this.indicators.ema8.result) {
-    if (strat.params.position === 'short') {
+    if (!strat.params.position || strat.params.position === 'short') {
       this.params.trend = 'long';
       console.log('trend long');
     }
   }
 
   if (this.indicators.ema55.result > this.indicators.ema21.result > this.indicators.ema13.result > this.indicators.ema8.result) {
-    if (strat.params.position === 'long') {
+    if (!strat.params.position || strat.params.position === 'long') {
       this.params.trend = 'short';
       console.log('trend short');
     }
@@ -110,10 +110,16 @@ strat.check = function() {
   //   return;
   // }
 
-  console.log(this.params.position, this.params.trend);
-  if (this.params.position !== this.params.trend) {
-    this[this.params.trend]();
+  if (this.params.trend) {
+    if (!this.params.position) {
+      this.params.position = this.params.trend;
+    } else {
+      if (this.params.position !== this.params.trend) {
+        this[this.params.trend]();
+      }
+    }  
   }
+
 
   // if (this.prevadvice === 'long') {
   //   this.advice('short');
