@@ -24,19 +24,16 @@ var profitPercent = 1;
 strat.init = function() {
   this.input = 'candle';
   this.requiredHistory = this.tradingAdvisor.historySize;
-  this.addIndicator('ema55', 'EMA', 55*60);
-  this.addIndicator('ema21', 'EMA', 21*60);
-  this.addIndicator('ema13', 'EMA', 13*60);
-  this.addIndicator('ema8', 'EMA', 8*60);
+  this.addIndicator('ema55', 'EMA', 55);
+  this.addIndicator('ema21', 'EMA', 21);
+  this.addIndicator('ema13', 'EMA', 13);
+  this.addIndicator('ema8', 'EMA', 8);
 }
 
 // What happens on every new candle?
 strat.update = function(candle) {
 
   this.candle = candle;
-
-  console.log(this.indicators.ema55.result, this.indicators.ema21.result, this.indicators.ema13.result, this.indicators.ema8.result)
-  console.log(this.params.trend);
 
   if (
     this.indicators.ema55.result < this.indicators.ema21.result &&
