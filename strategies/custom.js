@@ -39,6 +39,7 @@ strat.update = function(candle) {
   //   this.params.trend = 'long';
   // }
 
+  console.log(this.indicators.ema55.result, this.indicators.ema21.result, this.indicators.ema13.result, this.indicators.ema8.result);
   if (this.indicators.ema55.result > this.indicators.ema21.result > this.indicators.ema13.result > this.indicators.ema8.result) {
     console.log('ogogo');
     this.params.trend = 'short';
