@@ -36,17 +36,11 @@ strat.update = function(candle) {
   this.candle = candle;
 
   if (this.indicators.ema55.result < this.indicators.ema21.result < this.indicators.ema13.result < this.indicators.ema8.result) {
-    if (!strat.params.position || strat.params.position === 'short') {
-      this.params.trend = 'long';
-      console.log('trend long');
-    }
+    this.params.trend = 'long';
   }
 
   if (this.indicators.ema55.result > this.indicators.ema21.result > this.indicators.ema13.result > this.indicators.ema8.result) {
-    if (!strat.params.position || strat.params.position === 'long') {
-      this.params.trend = 'short';
-      console.log('trend short');
-    }
+    this.params.trend = 'short';
   }
 
 }
@@ -110,6 +104,8 @@ strat.check = function() {
   //   return;
   // }
 
+  console.log(this.params.trend, this.params.position);
+
   if (this.params.trend) {
     if (!this.params.position) {
       this.params.position = this.params.trend;
@@ -117,7 +113,7 @@ strat.check = function() {
       if (this.params.position !== this.params.trend) {
         this[this.params.trend]();
       }
-    }  
+    }
   }
 
 
