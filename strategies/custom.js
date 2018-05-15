@@ -35,11 +35,12 @@ strat.update = function(candle) {
 
   this.candle = candle;
 
-  if (this.indicators.ema55.result < this.indicators.ema21.result < this.indicators.ema13.result < this.indicators.ema8.result) {
-    this.params.trend = 'long';
-  }
+  // if (this.indicators.ema55.result < this.indicators.ema21.result < this.indicators.ema13.result < this.indicators.ema8.result) {
+  //   this.params.trend = 'long';
+  // }
 
   if (this.indicators.ema55.result > this.indicators.ema21.result > this.indicators.ema13.result > this.indicators.ema8.result) {
+    console.log('ogogo');
     this.params.trend = 'short';
   }
 
@@ -104,7 +105,7 @@ strat.check = function() {
   //   return;
   // }
 
-  console.log(this.params.trend, this.params.position);
+  console.log(this.params.trend);
 
   if (this.params.trend) {
     if (!this.params.position) {
