@@ -24,10 +24,10 @@ var profitPercent = 1;
 strat.init = function() {
   this.input = 'candle';
   this.requiredHistory = this.tradingAdvisor.historySize;
-  this.addIndicator('ema55', 'EMA', 55);
-  this.addIndicator('ema21', 'EMA', 21);
-  this.addIndicator('ema13', 'EMA', 13);
-  this.addIndicator('ema8', 'EMA', 8);
+  this.addIndicator('ema55', 'EMA', 55*60);
+  this.addIndicator('ema21', 'EMA', 21*60);
+  this.addIndicator('ema13', 'EMA', 13*60);
+  this.addIndicator('ema8', 'EMA', 8*60);
 }
 
 // What happens on every new candle?
